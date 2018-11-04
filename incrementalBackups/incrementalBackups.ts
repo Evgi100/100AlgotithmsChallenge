@@ -1,11 +1,27 @@
-function incrementalBackups(lastBackupTime: number, changes: number[][]): number[] {
+function incrementalBackups(
+  lastBackupTime: number,
+  changes: number[][]
+): number[] {
+  const idToBackup = [];
+  for (let change of changes) {
+    if (change[0] > lastBackupTime) {
+      if (!idToBackup.includes(change[1])) {
+        idToBackup.push(change[1]);
+      }
+    }
+  }
 
+  return idToBackup.sort((a, b) => a - b);
 }
 
-console.log(incrementalBackups(461620205, [[461620203, 1], 
-    [461620204, 2], 
+console.log(
+  incrementalBackups(461620205, [
+    [461620203, 1],
+    [461620204, 2],
     [461620205, 6],
-    [461620206, 5], 
-    [461620207, 3], 
-    [461620207, 5], 
-    [461620208, 1]]));
+    [461620206, 5],
+    [461620207, 3],
+    [461620207, 5],
+    [461620208, 1]
+  ])
+);
